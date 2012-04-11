@@ -1,0 +1,12 @@
+# bundler
+.bundle
+
+# For MacOS:
+#
+.DS_Store
+#
+# For TextMate
+*.tmproj
+tmtags
+vendor
+test.rb
