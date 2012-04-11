@@ -11,6 +11,9 @@ module Wordy
       @attributes.update hash
       hash.each do |key, value|
         metaclass.send :attr_accessor, key
+        if %w(delivery_date created).include? key
+          value = Time.at(value).to_datetime
+        end
         instance_variable_set("@#{key}", value)
       end
     end
@@ -28,9 +31,11 @@ module Wordy
       # language_id	
       # intrusive_editing (known in the front-end as content rewrite)	  true or false
       # brief	
-      # fileToUpload	                                                  single file to be edited
+      # fileToUpload	                                                  single file to be edited (not supported by this gem)
       # content	                                                        raw text to be edited
-      # json                                                            flat dictionary of content to be edited
+      # json                                                            flat dictionary of content to be edited '{"My Title":"My Content"}'
+      #
+      # Can only use one of those parameters: fileToUpload, content, json
       #
       # Response
       # --------
@@ -50,6 +55,12 @@ module Wordy
         response.map do |job_id|
           new({'id' => job_id})
         end
+      end
+      
+      def find(id)
+        response = Cli.http_get(Wordy::WORDY_URL+"job/#{id}/", {})
+        return nil if response.empty?
+        new(response.update('id' => id))
       end
     end
     
