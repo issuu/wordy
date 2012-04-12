@@ -43,10 +43,15 @@ module Wordy
       # id	      ID of the newly created job
       # url	      URL fragment of the newly created job
       #
-      def create
-        response = Cli.http_post(Wordy::WORDY_URL+'job/create/', {
-          'json' => '{"My Title":"Hello world"}'
-        })
+      def create(language, content, title=nil, intrusive_editing=false, brief=nil)
+        parameters = {:language_id => language, :intrusive_editing => intrusive_editing, :brief => brief}
+        if !title.nil? && !title.empty?
+          parameters[:json] = "{'#{title}':'#{content}'}"
+        else
+          parameters[:content] = content
+        end
+        parameters = parameters.keep_if{|key, value| !value.nil? }
+        response = Cli.http_post(Wordy::WORDY_URL+'job/create/', parameters)
         return new(response)
       end
       
