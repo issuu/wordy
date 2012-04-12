@@ -25,7 +25,27 @@ describe Wordy::Job do
   end
   
   describe "Creating a new job" do
-    # What params to provide?
+    it "should create a new job with a title" do
+      Wordy::Cli.stub!(:http_post).and_return({'id' => 666, 'url' => '/jobs/666'})
+      Wordy::Cli.should_receive(:http_post).with(Wordy::WORDY_URL+'job/create/', {
+        :language_id => 'en',
+        :intrusive_editing=>false,
+        :json => "{'My title':'My great content'}"
+      })
+      job = Wordy::Job.create('en', 'My great content', 'My title')
+      job.id.should == 666
+    end
+    
+    it "should create a new job without a title" do
+      Wordy::Cli.stub!(:http_post).and_return({'id' => 666, 'url' => '/jobs/666'})
+      Wordy::Cli.should_receive(:http_post).with(Wordy::WORDY_URL+'job/create/', {
+        :language_id => 'en',
+        :intrusive_editing=>false,
+        :content => 'My great content'
+      })
+      job = Wordy::Job.create('en', 'My great content')
+      job.id.should == 666
+    end
   end
   
   describe "Accessing a specific job" do

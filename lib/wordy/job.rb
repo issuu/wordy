@@ -12,7 +12,7 @@ module Wordy
       hash.each do |key, value|
         metaclass.send :attr_accessor, key
         if %w(delivery_date created).include? key
-          value = Time.at(value).to_datetime
+          value = DateTime.strptime(value.to_s,'%s')
         end
         instance_variable_set("@#{key}", value)
       end
