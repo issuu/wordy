@@ -50,7 +50,7 @@ module Wordy
         else
           parameters[:content] = content
         end
-        parameters = parameters.select{|key, value| !value.nil? }
+        parameters = parameters.delete_if{|key, value| value.nil? }
         response = Cli.http_post(Wordy::WORDY_URL+'job/create/', parameters)
         return new(response)
       end
