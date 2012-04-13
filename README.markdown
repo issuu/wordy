@@ -19,9 +19,9 @@ Wordy.configure do |c|
 end
 
 if Wordy::Account.balance > 0
-  job = Wordy::Job.create('en', 'Text I want to proofread', 'An optional title')
-  job.info
-  job.pay
+  job = Wordy::Job.create(1, 'Text I want to proofread', 'An optional title')
+  # See Account.languages to see the list of available languages and their ids
+  job.pay!
   puts "Your text will be ready at: #{job.delivery_date}"
 end
 

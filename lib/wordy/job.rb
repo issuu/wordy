@@ -84,15 +84,15 @@ module Wordy
       Cli.http_post(Wordy::WORDY_URL+"job/#{self.id}/conversation/", {'message' => message})
     end
     
-    def pay
+    def pay!
       Cli.http_post(Wordy::WORDY_URL+"job/#{self.id}/pay/", {})
     end
     
-    def confirm
+    def confirm!
       Cli.http_post(Wordy::WORDY_URL+"job/#{self.id}/confirm/", {})
     end
     
-    def reject
+    def reject!
       Cli.http_post(Wordy::WORDY_URL+"job/#{self.id}/reject/", {})
     end
   end
