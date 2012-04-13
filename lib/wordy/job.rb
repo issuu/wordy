@@ -13,6 +13,8 @@ module Wordy
         metaclass.send :attr_accessor, key
         if %w(delivery_date created).include? key
           value = DateTime.strptime(value.to_s,'%s')
+        elsif key == "cost"
+          value = value.to_s.match(/[^0-9]?([0-9]+\.{0,1}[0-9]+)/)[1].to_f
         end
         instance_variable_set("@#{key}", value)
       end

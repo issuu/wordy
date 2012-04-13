@@ -4,6 +4,7 @@ describe Wordy::Job do
   
   let(:wordy_job) do 
       {
+        "id"                    => 666,
         "status"                => "acp",
         "source_language_name"  => "English (UK)",
         "source_word_count"     => 2,
@@ -26,7 +27,7 @@ describe Wordy::Job do
   
   describe "Creating a new job" do
     it "should create a new job with a title" do
-      Wordy::Cli.stub!(:http_post).and_return({'id' => 666, 'url' => '/jobs/666'})
+      Wordy::Cli.stub!(:http_post).and_return(wordy_job)
       Wordy::Cli.should_receive(:http_post).with(Wordy::WORDY_URL+'job/create/', {
         :language_id => 'en',
         :intrusive_editing=>false,
@@ -34,10 +35,11 @@ describe Wordy::Job do
       })
       job = Wordy::Job.create('en', 'My great content', 'My title')
       job.id.should == 666
+      job.cost.should == 9.0
     end
     
     it "should create a new job without a title" do
-      Wordy::Cli.stub!(:http_post).and_return({'id' => 666, 'url' => '/jobs/666'})
+      Wordy::Cli.stub!(:http_post).and_return(wordy_job)
       Wordy::Cli.should_receive(:http_post).with(Wordy::WORDY_URL+'job/create/', {
         :language_id => 'en',
         :intrusive_editing=>false,
