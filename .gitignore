@@ -1,6 +1,9 @@
 # bundler
 .bundle
 
+# jeweler generated
+pkg
+
 # For MacOS:
 #
 .DS_Store
