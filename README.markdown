@@ -3,7 +3,7 @@
 Installation
 ------------
 
-    gem install wordy
+    gem install wordy-ruby
     
 Usage
 -----
