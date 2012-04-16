@@ -31,7 +31,7 @@ describe Wordy::Job do
       Wordy::Cli.should_receive(:http_post).with(Wordy::WORDY_URL+'job/create/', {
         :language_id => 'en',
         :intrusive_editing=>false,
-        :json => "{'My title':'My great content'}"
+        :json => '{"My title":"My great content"}'
       })
       job = Wordy::Job.create('en', 'My great content', 'My title')
       job.id.should == 666
