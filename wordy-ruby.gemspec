@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "wordy-ruby"
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bastien Vaucher - MagmaHQ"]
@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
     "spec/spec_helper.rb",
     "spec/wordy/account_spec.rb",
     "spec/wordy/job_spec.rb",
+    "wordy-ruby.gemspec",
     "wordy.gemspec"
   ]
   s.homepage = "http://github.com/bastien/wordy"
