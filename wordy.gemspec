@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'wordy'
-  s.version     = '0.0.0'
+  s.version     = '0.1.0'
   s.date        = '2012-04-10'
   s.summary     = "Wrapper around the Wordy API"
   s.description = "Ruby library to access the Wordy API"
