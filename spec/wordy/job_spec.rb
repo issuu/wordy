@@ -54,6 +54,19 @@ describe Wordy::Job do
       job = Wordy::Job.create('en', 'My great content')
       job.id.should == 666
     end
+    
+    it "should properly work with multiple line text" do
+      Wordy::Cli.stub!(:http_post).and_return(wordy_job)
+      Wordy::Cli.should_receive(:http_post).with(Wordy.wordy_url+'job/create/', {
+        :language_id => 'en',
+        :intrusive_editing=>false,
+        :json => '{"My title":"My multiple\nline\ncontent"}'
+      })
+      content = "My multiple\nline\ncontent"
+      job = Wordy::Job.create('en', content, 'My title')
+      job.id.should == 666
+      job.cost.should == 9.0
+    end
   end
   
   describe "Accessing a specific job" do
