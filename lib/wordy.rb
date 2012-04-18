@@ -1,16 +1,14 @@
 require "net/http"
-# require 'net/http/post/multipart'
-# require 'digest/md5'
 require 'uri'
 require 'cgi'
 require 'active_support'
-# require 'active_support/hash_with_indifferent_access'
 
 module Wordy
-  WORDY_URL = URI.parse('https://staging.wordy.com/api/1.0/')
+  WORDY_URL         = URI.parse('https://wordy.com/api/1.0/')
+  WORDY_STAGING_URL = URI.parse('https://staging.wordy.com/api/1.0/')
   
   class << self
-    attr_accessor :api_key, :username
+    attr_accessor :api_key, :username, :env
     
     # In your initializer:
     # Wordy.configure do |c|
@@ -19,7 +17,12 @@ module Wordy
     # end
     #
     def configure
+      self.env = 'production'
       yield self
+    end
+    
+    def wordy_url
+      self.env == 'production' ? WORDY_URL : WORDY_STAGING_URL
     end
   end
   

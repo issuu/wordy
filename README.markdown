@@ -16,6 +16,7 @@ require 'wordy'
 Wordy.configure do |c|
    c.api_key   = ENV['WORDY_API_KEY']
    c.username  = ENV['WORDY_USERNAME']
+   c.env       = 'production'
 end
 
 if Wordy::Account.balance > 0
@@ -26,3 +27,5 @@ if Wordy::Account.balance > 0
 end
 
 ```
+
+By default the Wordy environment is production, if you want to use the staging environment, set the 'env' attribute to 'staging'

@@ -34,7 +34,7 @@ describe Wordy::Job do
   describe "Creating a new job" do
     it "should create a new job with a title" do
       Wordy::Cli.stub!(:http_post).and_return(wordy_job)
-      Wordy::Cli.should_receive(:http_post).with(Wordy::WORDY_URL+'job/create/', {
+      Wordy::Cli.should_receive(:http_post).with(Wordy.wordy_url+'job/create/', {
         :language_id => 'en',
         :intrusive_editing=>false,
         :json => '{"My title":"My great content"}'
@@ -46,7 +46,7 @@ describe Wordy::Job do
     
     it "should create a new job without a title" do
       Wordy::Cli.stub!(:http_post).and_return(wordy_job)
-      Wordy::Cli.should_receive(:http_post).with(Wordy::WORDY_URL+'job/create/', {
+      Wordy::Cli.should_receive(:http_post).with(Wordy.wordy_url+'job/create/', {
         :language_id => 'en',
         :intrusive_editing=>false,
         :content => 'My great content'

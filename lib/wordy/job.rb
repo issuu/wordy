@@ -53,12 +53,12 @@ module Wordy
           parameters[:content] = content
         end
         parameters = parameters.delete_if{|key, value| value.nil? }
-        response = Cli.http_post(Wordy::WORDY_URL+'job/create/', parameters)
+        response = Cli.http_post(Wordy.wordy_url+'job/create/', parameters)
         return new(response)
       end
       
       def all
-        response = Cli.http_get(Wordy::WORDY_URL+"job/", {})
+        response = Cli.http_get(Wordy.wordy_url+"job/", {})
         response.map do |job_id|
           new({'id' => job_id})
         end
@@ -78,34 +78,34 @@ module Wordy
     end
     
     def info
-      response = Cli.http_get(Wordy::WORDY_URL+"job/#{self.id}/", {})
+      response = Cli.http_get(Wordy.wordy_url+"job/#{self.id}/", {})
       set_attributes(response)
     end
     
     def edited_document
-      response = Cli.http_get(Wordy::WORDY_URL+"job/#{self.id}/target/", {})
+      response = Cli.http_get(Wordy.wordy_url+"job/#{self.id}/target/", {})
       edited_content = response.values[0]
       set_attributes({:edited_content => edited_content})
     end
     
     def conversation
-      Cli.http_get(Wordy::WORDY_URL+"job/#{self.id}/conversation/", {})
+      Cli.http_get(Wordy.wordy_url+"job/#{self.id}/conversation/", {})
     end
     
     def update_conversation(message)
-      Cli.http_post(Wordy::WORDY_URL+"job/#{self.id}/conversation/", {'message' => message})
+      Cli.http_post(Wordy.wordy_url+"job/#{self.id}/conversation/", {'message' => message})
     end
     
     def pay!
-      Cli.http_post(Wordy::WORDY_URL+"job/#{self.id}/pay/", {})
+      Cli.http_post(Wordy.wordy_url+"job/#{self.id}/pay/", {})
     end
     
     def confirm!
-      Cli.http_post(Wordy::WORDY_URL+"job/#{self.id}/confirm/", {})
+      Cli.http_post(Wordy.wordy_url+"job/#{self.id}/confirm/", {})
     end
     
     def reject!
-      Cli.http_post(Wordy::WORDY_URL+"job/#{self.id}/reject/", {})
+      Cli.http_post(Wordy.wordy_url+"job/#{self.id}/reject/", {})
     end
   end
 end
