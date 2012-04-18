@@ -48,7 +48,7 @@ module Wordy
       def create(language, content, title=nil, callback_url=nil, intrusive_editing=false, brief=nil)
         parameters = {:language_id => language, :intrusive_editing => intrusive_editing, :brief => brief, :callback_url => callback_url}
         if !title.nil? && !title.empty?
-          parameters[:json] = '{"'+title+'":"'+content+'"}'
+          parameters[:json] = {title => content}.to_json
         else
           parameters[:content] = content
         end
