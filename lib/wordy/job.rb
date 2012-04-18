@@ -65,15 +65,27 @@ module Wordy
       end
       
       def find(id)
-        response = Cli.http_get(Wordy::WORDY_URL+"job/#{id}/", {})
-        return nil if response.empty?
-        new(response.update('id' => id))
+        job = new('id' => id)
+        job.info
+        job
+      end
+      
+      def find_edited_document(id)
+        job = new('id' => id)
+        job.edited_document
+        job
       end
     end
     
     def info
       response = Cli.http_get(Wordy::WORDY_URL+"job/#{self.id}/", {})
       set_attributes(response)
+    end
+    
+    def edited_document
+      response = Cli.http_get(Wordy::WORDY_URL+"job/#{self.id}/target/", {})
+      edited_content = response.values[0]
+      set_attributes({:edited_content => edited_content})
     end
     
     def conversation

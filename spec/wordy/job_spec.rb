@@ -3,20 +3,26 @@ require 'spec_helper'
 describe Wordy::Job do
   
   let(:wordy_job) do 
-      {
-        "id"                    => 666,
-        "status"                => "acp",
-        "source_language_name"  => "English (UK)",
-        "source_word_count"     => 2,
-        "cost"                  => "$9.00",
-        "intrusive_editing"     => false,
-        "target_url"            => "/jobs/17792/target/",
-        "created"               => 1334065282,
-        "brief"                 => "Great editing!",
-        "delivery_date"         => 1334065882,
-        "source_url"            => "/jobs/17792/source/"
-      }
-    end
+    {
+      "id"                    => 666,
+      "status"                => "acp",
+      "source_language_name"  => "English (UK)",
+      "source_word_count"     => 2,
+      "cost"                  => "$9.00",
+      "intrusive_editing"     => false,
+      "target_url"            => "/jobs/17792/target/",
+      "created"               => 1334065282,
+      "brief"                 => "Great editing!",
+      "delivery_date"         => 1334065882,
+      "source_url"            => "/jobs/17792/source/"
+    }
+  end
+  
+  let(:wordy_edited_job_content) do 
+    {
+      "job title" => "<p>Nicely edited new content<p>"
+    }
+  end
   
   describe "Getting the list of all the jobs" do
     it "should gather a list of job ids" do
@@ -65,6 +71,15 @@ describe Wordy::Job do
       Wordy::Cli.stub!(:http_get).and_return(wordy_job)
       @job.info
       @job.delivery_date.should == DateTime.parse('2012-04-10T15:51:22+02:00')
+      @job.id.should == 666
+    end
+  end
+  
+  describe "Fetching edited content for a job" do
+    it "should update the edited_content attributes of a job" do
+      Wordy::Cli.stub!(:http_get).and_return(wordy_edited_job_content)
+      @job = Wordy::Job.find_edited_document(666)
+      @job.edited_content.should == "<p>Nicely edited new content<p>"
       @job.id.should == 666
     end
   end
