@@ -8,10 +8,10 @@ Gem::Specification.new do |s|
   s.version = "0.2.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Bastien Vaucher - MagmaHQ"]
-  s.date = "2012-04-18"
+  s.authors = ["Bastien Vaucher", "MagmaHQ"]
+  s.date = "2012-06-08"
   s.description = "Ruby library to access the Wordy API"
-  s.email = "bastien.vaucher@gmail.com"
+  s.email = "hello@magmahq.com"
   s.extra_rdoc_files = [
     "README.markdown"
   ]
@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
     "wordy-ruby.gemspec",
     "wordy.gemspec"
   ]
-  s.homepage = "http://github.com/bastien/wordy"
+  s.homepage = "http://github.com/MagmaHQ/wordy"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.17"
